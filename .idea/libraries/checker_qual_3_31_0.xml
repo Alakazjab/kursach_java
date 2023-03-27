@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="checker-qual-3.31.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/Resources/lib/checker-qual-3.31.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Resources/lib/postgresql-42.6.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

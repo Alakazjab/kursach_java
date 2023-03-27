@@ -26,19 +26,6 @@ public class DbCon implements callProcedures, selectFunctions {
     public void executeQuery(String query) throws SQLException {
         this.statement.executeUpdate(query);
     }
-    public boolean createUser(String lodin, String password) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL \"createUser\"(?,?) ;");
-            callableStatement.setString(1,lodin);
-            callableStatement.setString(2,password);
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
-        return true;
-    }
     public boolean testUserLogin(String email) throws SQLException {
         return !new DbCon().getResultSet("select \"E-mail\" from kursach.\"users\" where \"E-mail\" = '" + email + "';").next();
     }

@@ -8,6 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="bcrypt-0.4.1" level="project" />
-    <orderEntry type="library" name="postgresql-42.5.2" level="project" />
+    <orderEntry type="library" name="checker-qual-3.31.0" level="project" />
   </component>
 </module>
