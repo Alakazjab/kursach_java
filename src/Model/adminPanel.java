@@ -1,4 +1,6 @@
 package Model;
 
-public class adminPanel {
+import javax.swing.*;
+
+public class adminPanel extends JFrame {
 }

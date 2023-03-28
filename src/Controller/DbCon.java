@@ -10,6 +10,7 @@ public class DbCon implements callProcedures, selectFunctions {
     Statement statement;
     ResultSet resultSet;
     static CallableStatement callableStatement;
+    static PreparedStatement preparedStatement;
     public static Connection connect() {
         try {
             return DriverManager.getConnection("jdbc:postgresql://172.20.8.15:5432/db0901_08","st0901","pwd0901");
@@ -170,57 +171,76 @@ public class DbCon implements callProcedures, selectFunctions {
     @Override
     public ResultSet return_dishes_on_type_dish(int type_id) throws SQLException {
         connection = connect();
-        callableStatement = connection.prepareCall(" select kursach.return_dishes_on_type_dish(?)");
-        callableStatement.setInt(1,type_id);
-        this.resultSet = callableStatement.executeQuery();
+        preparedStatement = connection.prepareCall(" select kursach.return_dishes_on_type_dish(?)");
+        preparedStatement.setInt(1,type_id);
+        this.resultSet = preparedStatement.executeQuery();
         return this.resultSet;
     }
 
     @Override
     public int[][] return_dishes_structure(int type_id) throws SQLException {
         connection = connect();
-        callableStatement = connection.prepareCall(" select kursach.return_dishes_structure(?)");
-        callableStatement.setInt(1,type_id);
-        callableStatement.execute();
-        Array result = callableStatement.getArray(1);
+        preparedStatement = connection.prepareCall(" select kursach.return_dishes_structure(?)");
+        preparedStatement.setInt(1,type_id);
+        preparedStatement.execute();
+        this.resultSet = preparedStatement.getResultSet();
+        this.resultSet.next();
+        Array result = this.resultSet.getArray(1);
         return (int[][]) result.getArray();
     }
 
     @Override
     public int[][] return_zakaz_addition_composition(int zakaz_id) throws SQLException {
         connection = connect();
-        callableStatement = connection.prepareCall(" select kursach.return_zakaz_addition_composition(?)");
-        callableStatement.setInt(1,zakaz_id);
-        callableStatement.execute();
-        Array result = callableStatement.getArray(1);
+        preparedStatement = connection.prepareCall(" select kursach.return_zakaz_addition_composition(?)");
+        preparedStatement.setInt(1,zakaz_id);
+        preparedStatement.execute();
+        this.resultSet = preparedStatement.getResultSet();
+        this.resultSet.next();
+        Array result = this.resultSet.getArray(1);
         return (int[][]) result.getArray();
     }
 
     @Override
     public int[][] return_zakaz_dish_composition(int zakaz_id) throws SQLException {
         connection = connect();
-        callableStatement = connection.prepareCall(" select kursach.return_zakaz_dish_composition(?)");
-        callableStatement.setInt(1,zakaz_id);
-        callableStatement.execute();
-        Array result = callableStatement.getArray(1);
+        preparedStatement = connection.prepareCall(" select kursach.return_zakaz_dish_composition(?)");
+        preparedStatement.setInt(1,zakaz_id);
+        preparedStatement.execute();
+        this.resultSet = preparedStatement.getResultSet();
+        this.resultSet.next();
+        Array result = this.resultSet.getArray(1);
         return (int[][]) result.getArray();
     }
 
     @Override
     public ResultSet return_zakaz_user(int user_id) throws SQLException {
         connection = connect();
-        callableStatement = connection.prepareCall(" select kursach.return_zakaz_user(?)");
-        callableStatement.setInt(1,user_id);
-        this.resultSet = callableStatement.executeQuery();
+        preparedStatement = connection.prepareCall(" select kursach.return_zakaz_user(?)");
+        preparedStatement.setInt(1,user_id);
+        this.resultSet = preparedStatement.executeQuery();
         return this.resultSet;
     }
 
     @Override
     public String return_user_status(String email) throws SQLException {
         connection = connect();
-        callableStatement = connection.prepareCall(" select kursach.return_user_status(?)");
-        callableStatement.setString(1,email);
-        callableStatement.execute();
-        return callableStatement.getString(1);
+        preparedStatement = connection.prepareCall(" select kursach.return_user_status(?)");
+        preparedStatement.setString(1,email);
+        preparedStatement.execute();
+        this.resultSet = preparedStatement.getResultSet();
+        this.resultSet.next();
+        return this.resultSet.getString(1);
+    }
+
+    @Override
+    public String auth_user(String email) throws SQLException {
+        connection = connect();
+        preparedStatement = connection.prepareCall(" select kursach.auth_user(?)");
+        preparedStatement.setString(1,email);
+        preparedStatement.execute();
+        this.resultSet = preparedStatement.getResultSet();
+        this.resultSet.next();
+        return this.resultSet.getString(1);
     }
 }

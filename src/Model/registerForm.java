@@ -74,7 +74,7 @@ public class registerForm extends JFrame {
                     showMessageDialog(null, "Вы успешно зарегистрировались", "Сообщение", JOptionPane.INFORMATION_MESSAGE);
                     mainWindow mainWindow = new mainWindow();
                     mainWindow.pack();
-                    mainWindow.setSize(new Dimension(300, 300));
+                    mainWindow.setSize(new Dimension(300, 350));
                     mainWindow.setVisible(true);
                     dispose();
                 }

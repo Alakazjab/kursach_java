@@ -10,5 +10,6 @@ public interface selectFunctions {
     int[][] return_zakaz_dish_composition(int zakaz_id) throws SQLException;
     ResultSet return_zakaz_user(int user_id) throws SQLException;
     String return_user_status(String email) throws SQLException;
+    String auth_user(String email) throws SQLException;
 
 }
