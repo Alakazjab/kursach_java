@@ -1,4 +1,6 @@
 package Model;
 
-public class mainWindow {
+import javax.swing.*;
+
+public class mainWindow extends JFrame {
 }

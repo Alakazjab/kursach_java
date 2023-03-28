@@ -26,245 +26,201 @@ public class DbCon implements callProcedures, selectFunctions {
     public void executeQuery(String query) throws SQLException {
         this.statement.executeUpdate(query);
     }
-    public boolean createUser(String lodin, String password) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL \"createUser\"(?,?) ;");
-            callableStatement.setString(1,lodin);
-            callableStatement.setString(2,password);
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
-        return true;
-    }
     public boolean testUserLogin(String email) throws SQLException {
         return !new DbCon().getResultSet("select \"E-mail\" from kursach.\"users\" where \"E-mail\" = '" + email + "';").next();
     }
 
     @Override
-    public boolean add_user(String name, String email, String password, int age) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL kursach.add_user(?, ?, ?, ?)");
-            callableStatement.setString(1,name);
-            callableStatement.setString(2,email);
-            callableStatement.setString(3,password);
-            callableStatement.setInt(4, age);
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
+    public boolean add_user(String name, String email, String password, int age) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.add_user(?, ?, ?, ?)");
+        callableStatement.setString(1,name);
+        callableStatement.setString(2,email);
+        callableStatement.setString(3,password);
+        callableStatement.setInt(4, age);
+        callableStatement.execute();
         return true;
     }
 
     @Override
-    public boolean create_zakaz(int id_user, boolean dilivery, int[][] dish_number, int[][] addition_number) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL kursach.create_zakaz(?, ?, ?, ?)");
-            callableStatement.setInt(1,id_user);
-            callableStatement.setBoolean(2,dilivery);
-            callableStatement.setArray(3,connection.createArrayOf("integer", dish_number));
-            callableStatement.setArray(4, connection.createArrayOf("integer", addition_number));
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
+    public boolean create_zakaz(int id_user, boolean dilivery, int[][] dish_number, int[][] addition_number) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.create_zakaz(?, ?, ?, ?)");
+        callableStatement.setInt(1,id_user);
+        callableStatement.setBoolean(2,dilivery);
+        callableStatement.setArray(3,connection.createArrayOf("integer", dish_number));
+        callableStatement.setArray(4, connection.createArrayOf("integer", addition_number));
+        callableStatement.execute();
         return true;
     }
 
     @Override
-    public boolean create_zakaz(int id_user, boolean dilivery, int[][] dish_number, String type) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL kursach.create_zakaz(?, ?, ?, ?)");
-            callableStatement.setInt(1,id_user);
-            callableStatement.setBoolean(2,dilivery);
-            callableStatement.setArray(3,connection.createArrayOf("integer", dish_number));
-            callableStatement.setString(4, type);
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
+    public boolean create_zakaz(int id_user, boolean dilivery, int[][] dish_number, String type) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.create_zakaz(?, ?, ?, ?)");
+        callableStatement.setInt(1,id_user);
+        callableStatement.setBoolean(2,dilivery);
+        callableStatement.setArray(3,connection.createArrayOf("integer", dish_number));
+        callableStatement.setString(4, type);
+        callableStatement.execute();
         return true;
     }
 
     @Override
-    public boolean delete_zakaz(int zakaz_id) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL kursach.delete_zakaz(?)");
-            callableStatement.setInt(1,zakaz_id);
-
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
+    public boolean delete_zakaz(int zakaz_id) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.delete_zakaz(?)");
+        callableStatement.setInt(1,zakaz_id);
+        callableStatement.execute();
         return true;
     }
 
     @Override
-    public boolean insert_addition(String name, int num, double cost, String description, int weight) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL kursach.insert_addition(?, ?, ?, ?, ?)");
-            callableStatement.setString(1,name);
-            callableStatement.setInt(2,num);
-            callableStatement.setDouble(3,cost);
-            callableStatement.setString(4, description);
-            callableStatement.setInt(5, weight);
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
+    public boolean insert_addition(String name, int num, double cost, String description, int weight) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.insert_addition(?, ?, ?, ?, ?)");
+        callableStatement.setString(1,name);
+        callableStatement.setInt(2,num);
+        callableStatement.setDouble(3,cost);
+        callableStatement.setString(4, description);
+        callableStatement.setInt(5, weight);
+        callableStatement.execute();
         return true;
     }
 
     @Override
-    public boolean insert_dish(String name, int type_id, double cost, int size, int calories, int[][] stucture) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL kursach.insert_dish(?, ?, ?, ?, ?, ?)");
-            callableStatement.setString(1,name);
-            callableStatement.setInt(2,type_id);
-            callableStatement.setDouble(3,cost);
-            callableStatement.setInt(4, size);
-            callableStatement.setInt(5, calories);
-            callableStatement.setArray(6, connection.createArrayOf("integer", stucture));
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
+    public boolean insert_dish(String name, int type_id, double cost, int size, int calories, int[][] stucture) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.insert_dish(?, ?, ?, ?, ?, ?)");
+        callableStatement.setString(1,name);
+        callableStatement.setInt(2,type_id);
+        callableStatement.setDouble(3,cost);
+        callableStatement.setInt(4, size);
+        callableStatement.setInt(5, calories);
+        callableStatement.setArray(6, connection.createArrayOf("integer", stucture));
+        callableStatement.execute();
         return true;
     }
 
     @Override
-    public boolean insert_sklad(String cell, String name, int num, Date date, int shelf_life) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL kursach.insert_sklad(?, ?, ?, ?, ?)");
-            callableStatement.setString(1, cell);
-            callableStatement.setString(2, cell);
-            callableStatement.setInt(3, num);
-            callableStatement.setDate(4, date);
-            callableStatement.setInt(5, shelf_life);
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
+    public boolean insert_sklad(String cell, String name, int num, Date date, int shelf_life) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.insert_sklad(?, ?, ?, ?, ?)");
+        callableStatement.setString(1, cell);
+        callableStatement.setString(2, cell);
+        callableStatement.setInt(3, num);
+        callableStatement.setDate(4, date);
+        callableStatement.setInt(5, shelf_life);
+        callableStatement.execute();
         return true;
     }
 
     @Override
-    public boolean insert_sklad(String cell, String name, int num, int shelf_life) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL kursach.insert_sklad(?, ?, ?, ?)");
-            callableStatement.setString(1,cell);
-            callableStatement.setString(2,name);
-            callableStatement.setInt(3,num);
-            callableStatement.setInt(4, shelf_life);
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
+    public boolean insert_sklad(String cell, String name, int num, int shelf_life) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.insert_sklad(?, ?, ?, ?)");
+        callableStatement.setString(1,cell);
+        callableStatement.setString(2,name);
+        callableStatement.setInt(3,num);
+        callableStatement.setInt(4, shelf_life);
+        callableStatement.execute();
         return true;
     }
 
     @Override
-    public boolean insert_type_dish(String name, Time[] feed_time) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL kursach.insert_type_dish(?, ?)");
-            callableStatement.setString(1,name);
-            callableStatement.setArray(2,connection.createArrayOf("kursach.timerange", feed_time));
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
+    public boolean insert_type_dish(String name, Time[] feed_time) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.insert_type_dish(?, ?)");
+        callableStatement.setString(1,name);
+        callableStatement.setArray(2,connection.createArrayOf("kursach.timerange", feed_time));
+        callableStatement.execute();
         return true;
     }
 
     @Override
-    public boolean update_number_cell(String cell_curr, int number_new) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL kursach.update_number_cell(?, ?)");
-            callableStatement.setString(1,cell_curr);
-            callableStatement.setInt(2, number_new);
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
+    public boolean update_number_cell(String cell_curr, int number_new) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.update_number_cell(?, ?)");
+        callableStatement.setString(1,cell_curr);
+        callableStatement.setInt(2, number_new);
+        callableStatement.execute();
         return true;
     }
 
     @Override
-    public boolean update_status_user(int id, String status) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL kursach.update_status_user(?, ?)");
-            callableStatement.setInt(1, id);
-            callableStatement.setString(2,status);
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
+    public boolean update_status_user(int id, String status) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.update_status_user(?, ?)");
+        callableStatement.setInt(1, id);
+        callableStatement.setString(2,status);
+        callableStatement.execute();
         return true;
     }
 
     @Override
-    public boolean update_status_zakaz(int id, String status) {
-        try {
-            connection = connect();
-            callableStatement = connection.prepareCall(" CALL kursach.update_status_zakaz(?, ?)");
-            callableStatement.setInt(1,id);
-            callableStatement.setString(2,status);
-            callableStatement.execute();
-        }
-        catch (SQLException e) {
-            return false;
-        }
+    public boolean update_status_zakaz(int id, String status) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.update_status_zakaz(?, ?)");
+        callableStatement.setInt(1,id);
+        callableStatement.setString(2,status);
+        callableStatement.execute();
         return true;
     }
 
     @Override
-    public ResultSet return_dishes_on_type_dish(int type_id) {
-        this.resultSet = null;
+    public ResultSet return_dishes_on_type_dish(int type_id) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" select kursach.return_dishes_on_type_dish(?)");
+        callableStatement.setInt(1,type_id);
+        this.resultSet = callableStatement.executeQuery();
         return this.resultSet;
     }
 
     @Override
-    public int[][] return_dishes_structure(int type_id) {
-        return new int[0][];
+    public int[][] return_dishes_structure(int type_id) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" select kursach.return_dishes_structure(?)");
+        callableStatement.setInt(1,type_id);
+        callableStatement.execute();
+        Array result = callableStatement.getArray(1);
+        return (int[][]) result.getArray();
     }
 
     @Override
-    public int[][] return_zakaz_addition_composition(int zakaz_id) {
-        return new int[0][];
+    public int[][] return_zakaz_addition_composition(int zakaz_id) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" select kursach.return_zakaz_addition_composition(?)");
+        callableStatement.setInt(1,zakaz_id);
+        callableStatement.execute();
+        Array result = callableStatement.getArray(1);
+        return (int[][]) result.getArray();
     }
 
     @Override
-    public int[][] return_zakaz_dish_composition(int zakaz_id) {
-        return new int[0][];
+    public int[][] return_zakaz_dish_composition(int zakaz_id) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" select kursach.return_zakaz_dish_composition(?)");
+        callableStatement.setInt(1,zakaz_id);
+        callableStatement.execute();
+        Array result = callableStatement.getArray(1);
+        return (int[][]) result.getArray();
     }
 
     @Override
-    public ResultSet return_zakaz_user(int user_id) {
-        this.resultSet = null;
+    public ResultSet return_zakaz_user(int user_id) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" select kursach.return_zakaz_user(?)");
+        callableStatement.setInt(1,user_id);
+        this.resultSet = callableStatement.executeQuery();
         return this.resultSet;
+    }
+
+    @Override
+    public String return_user_status(String email) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" select kursach.return_user_status(?)");
+        callableStatement.setString(1,email);
+        callableStatement.execute();
+        return callableStatement.getString(1);
     }
 }

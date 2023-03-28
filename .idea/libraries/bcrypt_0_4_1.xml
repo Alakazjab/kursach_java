@@ -1,7 +1,8 @@
 <component name="libraryTable">
   <library name="bcrypt-0.4.1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../pr24/src/lib/bcrypt-0.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Resources/lib/bcrypt-0.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Resources/lib/bytes-0.4.6.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
