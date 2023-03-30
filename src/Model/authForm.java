@@ -18,29 +18,42 @@ public class authForm extends JFrame {
     private JButton sign_inButton;
     private JButton registerButton;
     private JLabel loginField;
+    private JLabel passwordLabel;
 
     public authForm() {
         this.getContentPane().add(panel);
 
         textField1.setForeground(Color.GRAY);
+        textField1.setText("E-mail");
+        passwordField1.setForeground(Color.GRAY);
+        passwordField1.setEchoChar((char)0);
+        passwordField1.setText("Password");
         textField1.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (textField1.getText().equals("E-mail")) {
-                    textField1.setText("");
-                    textField1.setForeground(Color.BLACK);
-                }
+                Placeholder.textFocusGained(textField1,"E-mail");
                 loginField.setText(null);
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (textField1.getText().isEmpty()) {
-                    textField1.setForeground(Color.GRAY);
-                    textField1.setText("E-mail");
-                }
+                if (textField1.getText().isEmpty()) loginField.setText("Это поле необходимо Заполнить");
+                Placeholder.textFocusLost(textField1, "E-mail");
             }
         });
+        passwordField1.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                Placeholder.passwordFocusGained(passwordField1, "Password");
+                passwordLabel.setText(null);
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (passwordField1.getText().isEmpty()) passwordLabel.setText("Это поле необходимо Заполнить");
+                Placeholder.passwordFocusLost(passwordField1, "Password");
+            }
+        });
+
         sign_inButton.addActionListener(e -> {
             try {
                 if (!BCrypt.verifyer().verify(passwordField1.getPassword() , new DbCon().auth_user(textField1.getText()).toCharArray()).verified) {return;}
@@ -71,7 +84,7 @@ public class authForm extends JFrame {
         registerButton.addActionListener(e -> {
             registerForm registerForm = new registerForm();
             registerForm.pack();
-            registerForm.setSize(new Dimension(300, 300));
+            registerForm.setSize(new Dimension(400, 400));
             registerForm.setVisible(true);
             dispose();
         });
