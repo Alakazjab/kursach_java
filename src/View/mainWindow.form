@@ -17,25 +17,68 @@
         <properties/>
         <border type="none"/>
         <children>
-          <scrollpane id="ce362">
+          <grid id="6a3e4" layout-manager="GridLayoutManager" row-count="2" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Меню"/>
             </constraints>
-            <properties/>
+            <properties>
+              <font name="JetBrains Mono" size="14"/>
+            </properties>
             <border type="none"/>
             <children>
-              <component id="9f8fc" class="javax.swing.JTable" binding="menuTable">
-                <constraints/>
+              <scrollpane id="ce362">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="5" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="9f8fc" class="javax.swing.JTable" binding="menuTable">
+                    <constraints/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                      <font name="JetBrains Mono" size="12"/>
+                      <foreground color="-15395559"/>
+                      <gridColor color="-16250872"/>
+                      <selectionBackground color="-13929581"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <component id="d08b4" class="javax.swing.JSpinner" binding="количествоSpinner" default-binding="true">
+                <constraints>
+                  <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                    <maximum-size width="30" height="-1"/>
+                  </grid>
+                </constraints>
                 <properties>
-                  <autoCreateRowSorter value="true"/>
                   <font name="JetBrains Mono" size="12"/>
-                  <foreground color="-2696996"/>
-                  <gridColor color="-15132131"/>
-                  <selectionBackground color="-14593426"/>
+                </properties>
+              </component>
+              <component id="b11d1" class="javax.swing.JButton" binding="добавитьButton" default-binding="true">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="JetBrains Mono"/>
+                  <text value="Добавить"/>
+                </properties>
+              </component>
+              <component id="c33b2" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="4" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="JetBrains Mono" size="14"/>
+                  <horizontalAlignment value="11"/>
+                  <horizontalTextPosition value="4"/>
+                  <labelFor value="d08b4"/>
+                  <text value="Количество"/>
                 </properties>
               </component>
             </children>
-          </scrollpane>
+          </grid>
           <scrollpane id="ccd9d">
             <constraints>
               <tabbedpane title="Мои заказы"/>
@@ -50,6 +93,14 @@
                 </properties>
               </component>
             </children>
+          </scrollpane>
+          <scrollpane id="2423e">
+            <constraints>
+              <tabbedpane title="Корзина"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children/>
           </scrollpane>
           <grid id="421a3" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>

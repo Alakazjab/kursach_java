@@ -5,11 +5,9 @@ import Model.tableModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Vector;
 
 public class mainWindow extends JFrame {
@@ -17,13 +15,13 @@ public class mainWindow extends JFrame {
     private JTable menuTable;
     private JTabbedPane tabbedPane1;
     private JTable userZakazTable;
+    private JSpinner количествоSpinner;
+    private JButton добавитьButton;
 
     public mainWindow() throws HeadlessException, SQLException  {
         this.getContentPane().add(panel1);
         DbCon dbCon = new DbCon();
-        TableModel ptm = null;
         DefaultTableModel model = (DefaultTableModel) menuTable.getModel();
-        JTable jTable = new JTable(ptm);
         new tableModel().addData(dbCon);
         String[] colName = new String[new tableModel().getColumnCount()];
         ResultSet resultSet = dbCon.getResultSet("select * from kursach.\"Блюдо\"");
