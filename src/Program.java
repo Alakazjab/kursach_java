@@ -1,4 +1,4 @@
-import Model.authForm;
+import Controller.authForm;
 
 import java.awt.*;
 

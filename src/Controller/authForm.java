@@ -1,6 +1,6 @@
-package Model;
+package Controller;
 
-import Controller.DbCon;
+import Model.DbCon;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import javax.swing.*;

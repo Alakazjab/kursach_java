@@ -1,6 +1,7 @@
-package Model;
+package Controller;
 
-import Controller.DbCon;
+import Model.DbCon;
+import Model.digitFilter;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import javax.swing.*;

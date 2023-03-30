@@ -1,7 +1,7 @@
-package Controller;
+package Model;
 
-import Controller.interfaces.callProcedures;
-import Controller.interfaces.selectFunctions;
+import Model.interfaces.callProcedures;
+import Model.interfaces.selectFunctions;
 
 import java.sql.*;
 
