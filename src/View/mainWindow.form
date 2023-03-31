@@ -38,6 +38,8 @@
                     <constraints/>
                     <properties>
                       <autoCreateRowSorter value="true"/>
+                      <cellSelectionEnabled value="false"/>
+                      <columnSelectionAllowed value="false"/>
                       <font name="JetBrains Mono" size="12"/>
                       <foreground color="-15395559"/>
                       <gridColor color="-16250872"/>
@@ -94,14 +96,45 @@
               </component>
             </children>
           </scrollpane>
-          <scrollpane id="2423e">
+          <grid id="a36d9" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Корзина"/>
             </constraints>
             <properties/>
             <border type="none"/>
-            <children/>
-          </scrollpane>
+            <children>
+              <scrollpane id="2423e">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="af306" class="javax.swing.JTable" binding="table1" default-binding="true">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
+              <component id="21ed6" class="javax.swing.JButton" binding="заказатьButton" default-binding="true">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="4" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Заказать"/>
+                </properties>
+              </component>
+              <component id="c177b" class="javax.swing.JCheckBox" binding="доставкаCheckBox" default-binding="true">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Доставка"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
           <grid id="421a3" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>

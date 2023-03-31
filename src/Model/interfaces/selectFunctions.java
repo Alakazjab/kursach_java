@@ -11,5 +11,5 @@ public interface selectFunctions {
     ResultSet return_zakaz_user(int user_id) throws SQLException;
     String return_user_status(String email) throws SQLException;
     String auth_user(String email) throws SQLException;
-
+    int return_user_id(String email) throws SQLException;
 }

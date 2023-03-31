@@ -243,4 +243,15 @@ public class DbCon implements callProcedures, selectFunctions {
         this.resultSet.next();
         return this.resultSet.getString(1);
     }
+
+    @Override
+    public int return_user_id(String email) throws SQLException {
+        connection = connect();
+        preparedStatement = connection.prepareCall(" select kursach.return_user_id(?)");
+        preparedStatement.setString(1,email);
+        preparedStatement.execute();
+        this.resultSet = preparedStatement.getResultSet();
+        this.resultSet.next();
+        return this.resultSet.getInt(1);
+    }
 }

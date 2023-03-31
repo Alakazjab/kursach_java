@@ -19,6 +19,15 @@ public class authForm extends JFrame {
     private JButton registerButton;
     private JLabel loginField;
     private JLabel passwordLabel;
+    private static int user_id;
+
+    public void setUser_id(int user_id) {
+        authForm.user_id = user_id;
+    }
+
+    public static int getUser_id() {
+        return user_id;
+    }
 
     public authForm() {
         this.getContentPane().add(panel);
@@ -58,6 +67,7 @@ public class authForm extends JFrame {
             try {
                 if (!BCrypt.verifyer().verify(passwordField1.getPassword() , new DbCon().auth_user(textField1.getText()).toCharArray()).verified) {return;}
                 try {
+                    setUser_id(new DbCon().return_user_id(textField1.getText()));
                     if (Objects.equals(new DbCon().return_user_status(textField1.getText()), "admin")){
                         adminPanel adminPanel = new adminPanel();
                         adminPanel.pack();
