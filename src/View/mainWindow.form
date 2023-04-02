@@ -38,12 +38,13 @@
                     <constraints/>
                     <properties>
                       <autoCreateRowSorter value="true"/>
+                      <autoResizeMode value="2"/>
                       <cellSelectionEnabled value="false"/>
                       <columnSelectionAllowed value="false"/>
                       <font name="JetBrains Mono" size="12"/>
                       <foreground color="-15395559"/>
-                      <gridColor color="-16250872"/>
-                      <selectionBackground color="-13929581"/>
+                      <gridColor color="-14803166"/>
+                      <selectionBackground color="-13745298"/>
                     </properties>
                   </component>
                 </children>
@@ -57,7 +58,9 @@
                 <children>
                   <component id="574d3" class="javax.swing.JTable" binding="additionTable">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>
@@ -73,12 +76,13 @@
               <component id="e590b" class="javax.swing.JTable" binding="userZakazTable">
                 <constraints/>
                 <properties>
+                  <autoCreateRowSorter value="true"/>
                   <font name="JetBrains Mono" size="12"/>
                 </properties>
               </component>
             </children>
           </scrollpane>
-          <grid id="a36d9" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="a36d9" layout-manager="GridLayoutManager" row-count="2" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Корзина"/>
@@ -88,14 +92,17 @@
             <children>
               <scrollpane id="2423e">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none" title="Блюда"/>
                 <children>
                   <component id="af306" class="javax.swing.JTable" binding="zakazDish">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                      <dropMode value="USE_SELECTION"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>
@@ -109,7 +116,7 @@
               </component>
               <component id="c177b" class="javax.swing.JCheckBox" binding="diliveryCeckBox">
                 <constraints>
-                  <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Доставка"/>
@@ -117,20 +124,30 @@
               </component>
               <scrollpane id="8c4e9">
                 <constraints>
-                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none" title="Добавления"/>
                 <children>
                   <component id="3b8a7" class="javax.swing.JTable" binding="zakazAddition">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
                     <clientProperties>
                       <JTable.autoStartsEdit class="java.lang.Boolean" value="false"/>
                     </clientProperties>
                   </component>
                 </children>
               </scrollpane>
+              <component id="4936a" class="javax.swing.JButton" binding="remove">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Удалить"/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>

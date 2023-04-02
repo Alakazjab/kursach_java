@@ -34,7 +34,9 @@
                 <children>
                   <component id="1c3d3" class="javax.swing.JTable" binding="dishTable">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>

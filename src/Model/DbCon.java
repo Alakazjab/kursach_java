@@ -20,7 +20,9 @@ public class DbCon implements callProcedures, selectFunctions {
     }
     public ResultSet getResultSet(String query) throws SQLException {
         connection = connect();
-        this.statement = connection.createStatement();
+        this.statement = connection.createStatement(
+                ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_UPDATABLE);
         this.resultSet = this.statement.executeQuery(query);
         return this.resultSet;
     }
@@ -90,7 +92,7 @@ public class DbCon implements callProcedures, selectFunctions {
     }
 
     @Override
-    public boolean insert_dish(String name, int type_id, double cost, int size, int calories, Object[][] stucture) throws SQLException {
+    public boolean insert_dish(String name, int type_id, double cost, int size, int calories, Object [][] stucture) throws SQLException {
         connection = connect();
         callableStatement = connection.prepareCall(" CALL kursach.insert_dish(?, ?, ?, ?, ?, ?)");
         callableStatement.setString(1,name);

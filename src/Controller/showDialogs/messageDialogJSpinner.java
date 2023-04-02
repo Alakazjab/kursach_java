@@ -1,9 +1,14 @@
 package Controller.showDialogs;
 
 import Controller.mainWindow;
+import Model.digitFilter;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultFormatter;
+import javax.swing.text.NumberFormatter;
+import javax.swing.text.PlainDocument;
 import java.util.Arrays;
 
 public class messageDialogJSpinner extends JFrame{
@@ -28,7 +33,12 @@ public class messageDialogJSpinner extends JFrame{
     }
     public messageDialogJSpinner() {
     this.getContentPane().add(panel);
-
+        spinner1.setModel(new SpinnerNumberModel(1, 1, 1000, 1));
+        JFormattedTextField field1 = ((JSpinner.NumberEditor)
+                spinner1.getEditor()).getTextField();
+        ((NumberFormatter) field1.getFormatter()).setAllowsInvalid(false);
+        DefaultFormatter formatter1 = (DefaultFormatter) field1.getFormatter();
+        formatter1.setCommitsOnValidEdit(true);
     addButton.addActionListener(e -> {
         setResult((Integer) spinner1.getValue());
         messageDialogJSpinner.setSelectRow(new Object[]{

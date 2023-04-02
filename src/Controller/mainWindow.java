@@ -11,7 +11,6 @@ import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.Vector;
 
@@ -25,7 +24,7 @@ public class mainWindow extends JFrame {
     private JButton createZakazButton;
     private JCheckBox diliveryCeckBox;
     private JTable additionTable;
-    private JButton button1;
+    private JButton remove;
     public Object[][] dishes;
     public Object[][] additions;
     private static Object[] selectRow;
@@ -151,6 +150,18 @@ public class mainWindow extends JFrame {
                     messageDialogSpinner.setSize(new Dimension(300, 200));
                     messageDialogSpinner.setVisible(true);
                 }
+            }
+        });
+        remove.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Номер выделенной строки
+                int idzakazAddition = zakazAddition.getSelectedRow();
+                int idzakazDish = zakazDish.getSelectedRow();
+                // Удаление выделенной строки
+                if (idzakazAddition !=-1)
+                    ((DefaultTableModel) zakazAddition.getModel()).removeRow(idzakazAddition);
+                if (idzakazDish !=-1)
+                    ((DefaultTableModel) zakazDish.getModel()).removeRow(idzakazDish);
             }
         });
         createZakazButton.addActionListener(e -> {
