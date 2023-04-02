@@ -1,6 +1,6 @@
 package Controller;
 
-import Controller.showDialogs.messegeDialodJSpinner;
+import Controller.showDialogs.messageDialogJSpinner;
 import Model.DbCon;
 import Model.tableModel;
 
@@ -10,7 +10,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Vector;
 
 public class mainWindow extends JFrame {
@@ -18,35 +20,52 @@ public class mainWindow extends JFrame {
     private JTable menuTable;
     private JTabbedPane tabbedPane1;
     private JTable userZakazTable;
-    private JTable table1;
-    private JTable table2;
-    private JButton заказатьButton;
-    private JCheckBox CheckBox1;
+    private JTable zakazDish;
+    private JTable zakazAddition;
+    private JButton createZakazButton;
+    private JCheckBox diliveryCeckBox;
     private JTable additionTable;
-    public List<String> selectedRow;
-    public int[][] dishes;
-    public int[][] additions;
-    private int count;
+    private JButton button1;
+    public Object[][] dishes;
+    public Object[][] additions;
+    private static Object[] selectRow;
+    private String typeBasket;
+
+    public String getTypeBasket() {
+        return typeBasket;
+    }
+
+    public void setTypeBasket(String typeBasket) {
+        this.typeBasket = typeBasket;
+    }
+
+    public static Object[] getSelectRow() {
+        return selectRow;
+    }
+
+    public static void setSelectRow(Object[] selectRow) {
+        mainWindow.selectRow = selectRow;
+    }
+    public void addRowInKorzinaDish(Object[] row) {
+        DefaultTableModel model = (DefaultTableModel) zakazDish.getModel();
+        model.addRow(row);
+    }
+
     public mainWindow() throws HeadlessException, SQLException  {
+
         this.getContentPane().add(panel1);
-        DefaultTableModel tableModel = new DefaultTableModel() {
+        menuTable.setModel(new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-
                 return false;
             }
-        };
-        menuTable.setModel(tableModel);
+        });
         DbCon dbCon = new DbCon();
         DefaultTableModel model = (DefaultTableModel) menuTable.getModel();
-        new tableModel().addData(dbCon);
-        String[] colName = new String[new tableModel().getColumnCount()];
         ResultSet resultSet = dbCon.getResultSet("select * from kursach.\"Блюдо\"");
-        for(int i = 0; i < colName.length; i++) {
-            model.setColumnIdentifiers(new tableModel().whatColNames(resultSet));
-        }
+        model.setColumnIdentifiers(new tableModel().whatColNames(resultSet));
         while (resultSet.next()){
-            Vector<String> row = new Vector<String>();
+            Vector<String> row = new Vector<>();
             row.add(String.valueOf(resultSet.getInt(1)));
             row.add(resultSet.getString(2));
             row.add(resultSet.getString(3));
@@ -59,73 +78,132 @@ public class mainWindow extends JFrame {
 
     DefaultTableModel mod = new DefaultTableModel() {
         @Override
-        public Class<?> getColumnClass(int column){
-            return switch (column) {
-                case 2 -> Boolean.class;
-                default -> String.class;
-            };
-        }
-        @Override
         public boolean isCellEditable(int row, int column) {
-            return column == 2;
+            return false;
         }
     };
-//        userZakazTable.setModel(mod);
-//        DefaultTableModel modelz = (DefaultTableModel) userZakazTable.getModel();
-//        resultSet = dbCon.return_zakaz_user(authForm.getUser_id());
-//        Vector<String> vector = new Vector<String>(Arrays.asList("Номер", "Состояние", "Доставка", "Стоимость"));
-//        modelz.setColumnIdentifiers(vector);
-//        while (resultSet.next()){
-//            List<String> row = Arrays.asList(resultSet.getString(1).replace('(',(char)0).replace(')',(char)0).split(","));
-//            modelz.addRow(new Object[0]);
-//            modelz.setValueAt(row.get(0),resultSet.getRow(),0);
-//            modelz.setValueAt(row.get(1),resultSet.getRow(),1);
-//            modelz.setValueAt(!Objects.equals(row.get(2), "f"),resultSet.getRow(),2);
-//            modelz.setValueAt(row.get(3),resultSet.getRow(),3);
-//        }
+        additionTable.setModel(new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+        DefaultTableModel modelAddition = (DefaultTableModel) additionTable.getModel();
+        resultSet = dbCon.getResultSet("select \"Дополнение\".\"Номер\"," +
+                "\"Дополнение\".\" Название\",\"Дополнение\".\"Цена\",\"Дополнение\".\"Описание\"," +
+                "\"Дополнение\".\"Вес\" from kursach.\"Дополнение\"");
+        modelAddition.setColumnIdentifiers(new tableModel().whatColNames(resultSet));
+        while (resultSet.next()){
+            Vector<String> row = new Vector<>();
+            row.add(String.valueOf(resultSet.getInt(1)));
+            row.add(resultSet.getString(2));
+            row.add(String.valueOf(resultSet.getDouble(3)));
+            row.add(String.valueOf(resultSet.getString(4)));
+            row.add(String.valueOf(resultSet.getInt(5)));
+            modelAddition.addRow(row);
+        }
+        zakazDish.setModel(new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 2;
+            }
+        });
+        DefaultTableModel zakazDishModel = (DefaultTableModel) zakazDish.getModel();
+        zakazDishModel.setColumnIdentifiers(new Vector<>(Arrays.asList("Номер", "Название", "Количество")));
+
+        zakazAddition.setModel(new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 2;
+            }
+        });
+        DefaultTableModel zakazAdditionModel = (DefaultTableModel) zakazAddition.getModel();
+        zakazAdditionModel.setColumnIdentifiers(new Vector<>(Arrays.asList("Номер", "Название", "Количество")));
+
         menuTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() != 2) return;//ето типо даблклик
-                int row = table1.rowAtPoint(e.getPoint());
+//                JOptionPane.show
+                int row = menuTable.rowAtPoint(e.getPoint());
                 if (row > -1) {
-                    int realRow = table1.convertRowIndexToModel(row);
-                    for(int i = 0; i < colName.length; i++) {
-
-                    }
+                    setTypeBasket("Dish");
+                    int realRow = zakazDish.convertRowIndexToModel(row);
+                    mainWindow.setSelectRow(new String[] {(String) menuTable.getValueAt(realRow, 0), (String) menuTable.getValueAt(realRow, 1)});
+                    messageDialogJSpinner messageDialogSpinner = new messageDialogJSpinner();
+                    messageDialogSpinner.pack();
+                    messageDialogSpinner.setSize(new Dimension(300, 200));
+                    messageDialogSpinner.setVisible(true);
                 }
-                messegeDialodJSpinner messegeDialodJSpinner = new messegeDialodJSpinner();
-                messegeDialodJSpinner.pack();
-                messegeDialodJSpinner.setSize(new Dimension(200, 100));
-                messegeDialodJSpinner.setVisible(true);
             }
         });
-        заказатьButton.addActionListener(e -> {
+        additionTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() != 2) return;//ето типо даблклик
+                int row = additionTable.rowAtPoint(e.getPoint());
+                if (row > -1) {
+                    setTypeBasket("Addition");
+                    int realRow = zakazDish.convertRowIndexToModel(row);
+                    mainWindow.setSelectRow(new String[] {(String) additionTable.getValueAt(realRow, 0), (String) additionTable.getValueAt(realRow, 1)});
+                    messageDialogJSpinner messageDialogSpinner = new messageDialogJSpinner();
+                    messageDialogSpinner.pack();
+                    messageDialogSpinner.setSize(new Dimension(300, 200));
+                    messageDialogSpinner.setVisible(true);
+                }
+            }
+        });
+        createZakazButton.addActionListener(e -> {
             try {
-                if (table1.getRowCount()>0 && table2.getRowCount()==0)
-                    new DbCon().create_zakaz(authForm.getUser_id(), CheckBox1.isSelected(), new int[0][],"dish");
-                if (table1.getRowCount()==0 && table2.getRowCount()>0)
-                    new DbCon().create_zakaz(authForm.getUser_id(), CheckBox1.isSelected(), new int[0][],"addition");
-                if (table1.getRowCount()>0 && table2.getRowCount()>0)
-                    new DbCon().create_zakaz(authForm.getUser_id(), CheckBox1.isSelected(), new int[0][],new int[0][]);
+                additions = new Object[zakazAddition.getRowCount()][2];
+                for (int i = 0; i < zakazAddition.getRowCount(); i++) {
+                    additions[i][0] = zakazAddition.getValueAt(i,0);
+                    additions[i][1] = zakazAddition.getValueAt(i,2);
+                }
+                dishes = new Object[zakazDish.getRowCount()][2];
+                for (int i = 0; i < zakazDish.getRowCount(); i++) {
+                    dishes[i][0] = zakazDish.getValueAt(i,0);
+                    dishes[i][1] = zakazDish.getValueAt(i,2);
+                }
+                if (zakazDish.getRowCount()>0 && zakazAddition.getRowCount()==0)
+                    new DbCon().create_zakaz(authForm.getUser_id(), diliveryCeckBox.isSelected(), dishes,"dish");
+                if (zakazDish.getRowCount()==0 && zakazAddition.getRowCount()>0)
+                    new DbCon().create_zakaz(authForm.getUser_id(), diliveryCeckBox.isSelected(), additions,"addition");
+                if (zakazDish.getRowCount()>0 && zakazAddition.getRowCount()>0)
+                    new DbCon().create_zakaz(authForm.getUser_id(), diliveryCeckBox.isSelected(), dishes, additions);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         });
-
         tabbedPane1.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
                 if (tabbedPane1.getSelectedIndex() == 2) {
-
+                    if (!Arrays.equals(messageDialogJSpinner.getSelectRow(), null)){
+                        if (Objects.equals(getTypeBasket(), "Dish"))
+                            ((DefaultTableModel) zakazDish.getModel()).addRow(messageDialogJSpinner.getSelectRow());
+                        if (Objects.equals(getTypeBasket(), "Addition"))
+                            ((DefaultTableModel) zakazAddition.getModel()).addRow(messageDialogJSpinner.getSelectRow());
+                        messageDialogJSpinner.setSelectRow(null);
+                    }
                 }
-            }
-        });
-        tabbedPane1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (tabbedPane1.getSelectedIndex() == 2) {
-                    return;
+                if (tabbedPane1.getSelectedIndex() == 1) {
+                    try {
+                        userZakazTable.setModel(mod);
+                        mod.setRowCount(0);
+                        DefaultTableModel modelz = (DefaultTableModel) userZakazTable.getModel();
+                        ResultSet resultSet = dbCon.return_zakaz_user(authForm.getUser_id());
+                        Vector<String> vector = new Vector<String>(Arrays.asList("Номер", "Состояние", "Доставка", "Стоимость"));
+                        modelz.setColumnIdentifiers(vector);
+                        while (resultSet.next()){
+                            Object[] row = Arrays.asList(resultSet.getString(1).replace('(', (char) 0).replace(')', (char) 0).split(",")).toArray();
+                            modelz.addRow(row);
+                        }
+                    }
+                    catch (RuntimeException | SQLException exception) {
+                        throw new RuntimeException(exception);
+                    }
+
                 }
             }
         });

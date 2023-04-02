@@ -21,7 +21,7 @@ public class authForm extends JFrame {
     private JLabel passwordLabel;
     private static int user_id;
 
-    public void setUser_id(int user_id) {
+    public static void setUser_id(int user_id) {
         authForm.user_id = user_id;
     }
 
@@ -78,7 +78,7 @@ public class authForm extends JFrame {
                     }
                     mainWindow mainWindow = new mainWindow();
                     mainWindow.pack();
-                    mainWindow.setSize(new Dimension(500,500));
+                    mainWindow.setSize(new Dimension(1000,500));
                     mainWindow.setVisible(true);
                     dispose();
                 }

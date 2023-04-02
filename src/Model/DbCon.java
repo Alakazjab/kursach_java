@@ -44,7 +44,7 @@ public class DbCon implements callProcedures, selectFunctions {
     }
 
     @Override
-    public boolean create_zakaz(int id_user, boolean dilivery, int[][] dish_number, int[][] addition_number) throws SQLException {
+    public boolean create_zakaz(int id_user, boolean dilivery, Object[][] dish_number, Object[][] addition_number) throws SQLException {
         connection = connect();
         callableStatement = connection.prepareCall(" CALL kursach.create_zakaz(?, ?, ?, ?)");
         callableStatement.setInt(1,id_user);
@@ -56,7 +56,7 @@ public class DbCon implements callProcedures, selectFunctions {
     }
 
     @Override
-    public boolean create_zakaz(int id_user, boolean dilivery, int[][] dish_number, String type) throws SQLException {
+    public boolean create_zakaz(int id_user, boolean dilivery, Object[][] dish_number, String type) throws SQLException {
         connection = connect();
         callableStatement = connection.prepareCall(" CALL kursach.create_zakaz(?, ?, ?, ?)");
         callableStatement.setInt(1,id_user);
@@ -90,7 +90,7 @@ public class DbCon implements callProcedures, selectFunctions {
     }
 
     @Override
-    public boolean insert_dish(String name, int type_id, double cost, int size, int calories, int[][] stucture) throws SQLException {
+    public boolean insert_dish(String name, int type_id, double cost, int size, int calories, Object[][] stucture) throws SQLException {
         connection = connect();
         callableStatement = connection.prepareCall(" CALL kursach.insert_dish(?, ?, ?, ?, ?, ?)");
         callableStatement.setString(1,name);

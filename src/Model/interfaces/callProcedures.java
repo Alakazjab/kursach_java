@@ -6,11 +6,11 @@ import java.sql.Time;
 
 public interface callProcedures {
     boolean add_user(String name, String email, String password, int age) throws SQLException;
-    boolean create_zakaz(int id_user, boolean dilivery, int[][] dish_number, int[][] addition_number) throws SQLException;
-    boolean create_zakaz(int id_user, boolean dilivery, int[][] dish_number, String type) throws SQLException;
+    boolean create_zakaz(int id_user, boolean dilivery, Object[][] dish_number, Object[][] addition_number) throws SQLException;
+    boolean create_zakaz(int id_user, boolean dilivery, Object[][] dish_number, String type) throws SQLException;
     boolean delete_zakaz(int zakaz_id) throws SQLException;
     boolean insert_addition(String name, int num, double cost, String description, int weight) throws SQLException;
-    boolean insert_dish(String name, int type_id, double cost, int size, int calories, int[][] stucture) throws SQLException;
+    boolean insert_dish(String name, int type_id, double cost, int size, int calories, Object[][] stucture) throws SQLException;
     boolean insert_sklad(String cell, String name, int num, Date date, int shelf_life) throws SQLException;
     boolean insert_sklad(String cell, String name, int num, int shelf_life) throws SQLException;
     boolean insert_type_dish(String name, Time[] feed_time) throws SQLException;

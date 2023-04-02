@@ -31,14 +31,6 @@ public class tableModel extends AbstractTableModel {
         String[] row = dataArrayList.get(rowIndex);
         return row[columnIndex];
     }
-    public void addData(String[] row) {
-        String[] rowTable = new String[getColumnCount()];
-        rowTable = row;
-        dataArrayList.add(rowTable);
-    }
-    public ResultSet addData(DbCon con) throws SQLException {
-        return con.getResultSet("select * from \"picture\"");
-    }
     public String[] whatColNames(ResultSet set) throws SQLException {
         ResultSetMetaData mdata = set.getMetaData();
         String[] colNames = new String[mdata.getColumnCount()];

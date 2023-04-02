@@ -99,6 +99,7 @@ public class registerForm extends JFrame {
                 if (new DbCon().add_user(nameField.getText(), emailField.getText(),
                         BCrypt.withDefaults().hashToString(12, (passwordField1.getPassword())), Integer.parseInt(ageField.getText()))){
                     showMessageDialog(null, "Вы успешно зарегистрировались", "Сообщение", JOptionPane.INFORMATION_MESSAGE);
+                    authForm.setUser_id(new DbCon().return_user_id(emailField.getText()));
                     mainWindow mainWindow = new mainWindow();
                     mainWindow.pack();
                     mainWindow.setSize(new Dimension(900, 900));
