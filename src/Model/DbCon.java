@@ -131,11 +131,12 @@ public class DbCon implements callProcedures, selectFunctions {
     }
 
     @Override
-    public boolean insert_type_dish(String name, Time[] feed_time) throws SQLException {
+    public boolean insert_type_dish(String name, Time feed_time_start, Time feed_time_end) throws SQLException {
         connection = connect();
-        callableStatement = connection.prepareCall(" CALL kursach.insert_type_dish(?, ?)");
+        callableStatement = connection.prepareCall(" CALL kursach.insert_type_dish(?, ?, ?)");
         callableStatement.setString(1,name);
-        callableStatement.setArray(2,connection.createArrayOf("kursach.timerange", feed_time));
+        callableStatement.setTime(2, feed_time_start);
+        callableStatement.setTime(3, feed_time_end);
         callableStatement.execute();
         return true;
     }
