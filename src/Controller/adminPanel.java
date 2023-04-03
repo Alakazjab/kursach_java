@@ -4,22 +4,15 @@ import Model.DbCon;
 import Model.tableModel;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.KeyAdapter;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-
-import static com.sun.java.accessibility.util.SwingEventMonitor.addListSelectionListener;
 
 public class adminPanel extends JFrame {
     private JTabbedPane tabbedPane1;
@@ -29,7 +22,7 @@ public class adminPanel extends JFrame {
     private JTable skladTable;
     private JTable typeDishTable;
     private JTable userTable;
-    private JButton добавитьButton;
+    private JButton addButton;
     private JButton удалитьButton;
     private JButton добавитьButton2;
     private JButton удалитьButton1;
@@ -46,6 +39,11 @@ public class adminPanel extends JFrame {
     private JButton добавитьButton5;
     private JButton удалитьButton5;
     private JTable compositionZakazTable;
+    private JTextField additionNane;
+    private JComboBox<String> additionOnSklad;
+    private JTextField additionCost;
+    private JTextPane descriptionField;
+    private JTextField additionWeight;
 
     private void createTable(JTable table, String view, Object[][] data) throws SQLException {
         DbCon dbCon = new DbCon();
@@ -151,6 +149,9 @@ public class adminPanel extends JFrame {
         userTable.getColumnModel().getColumn(4)
                 .setCellEditor(new DefaultCellEditor(new JComboBox<String>(new String[]{"user", "admin"})));
 
+        for (int i = 0; i < getListValues(skladTable,0).length; i++)
+            additionOnSklad.addItem(getListValues(skladTable,0)[i]);
+
         zakazTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -203,6 +204,29 @@ public class adminPanel extends JFrame {
                         throw new RuntimeException(ex);
                     }
                 }
+            }
+        });
+        skladTable.getModel().addTableModelListener(new TableModelListener() {
+            public void tableChanged(TableModelEvent e) {
+                int row = e.getFirstRow();
+                int column = e.getColumn();
+                TableModel model = (TableModel)e.getSource();
+                Object data = model.getValueAt(row, column);
+                // Check if the changed cell is the redacted cell
+                if (!data.equals((Object) "")) {
+                    try {
+                        new DbCon().update_number_cell((String) skladTable.getValueAt(row,1), Integer.parseInt((String) data));
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            }
+        });
+        addButton.addActionListener(e -> {
+            try {
+                new DbCon().insert_addition(additionNane.getText(), Integer.parseInt((String) additionOnSklad.getSelectedItem()), Double.parseDouble(additionCost.getText()), descriptionField.getText(), Integer.parseInt(additionWeight.getText()));
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
         });
     }
