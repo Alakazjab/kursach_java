@@ -40,20 +40,74 @@
                   </component>
                 </children>
               </scrollpane>
-              <component id="17274" class="javax.swing.JButton" binding="button1" default-binding="true">
+              <component id="17274" class="javax.swing.JButton" binding="добавитьButton" default-binding="true">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Button"/>
+                  <text value="Добавить"/>
                 </properties>
               </component>
-              <component id="cad38" class="javax.swing.JButton" binding="button2" default-binding="true">
+              <component id="cad38" class="javax.swing.JButton" binding="удалитьButton" default-binding="true">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Button"/>
+                  <text value="Удалить"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="359b1" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Заказы"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <scrollpane id="3a42d">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="a34e4" class="javax.swing.JTable" binding="zakazTable">
+                    <constraints/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <component id="e479c" class="javax.swing.JButton" binding="добавитьButton5" default-binding="true">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Добавить"/>
+                </properties>
+              </component>
+              <scrollpane id="2dc70">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="61655" class="javax.swing.JTable" binding="compositionZakazTable">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
+              <component id="c4cdd" class="javax.swing.JButton" binding="удалитьButton5" default-binding="true">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Удалить"/>
                 </properties>
               </component>
             </children>
@@ -75,24 +129,26 @@
                 <children>
                   <component id="505b2" class="javax.swing.JTable" binding="additionTable">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>
-              <component id="b1826" class="javax.swing.JButton" binding="button3" default-binding="true">
+              <component id="b1826" class="javax.swing.JButton" binding="добавитьButton2" default-binding="true">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Button"/>
+                  <text value="Добавить"/>
                 </properties>
               </component>
-              <component id="9befd" class="javax.swing.JButton" binding="button4" default-binding="true">
+              <component id="9befd" class="javax.swing.JButton" binding="удалитьButton1" default-binding="true">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Button"/>
+                  <text value="Удалить"/>
                 </properties>
               </component>
             </children>
@@ -114,24 +170,26 @@
                 <children>
                   <component id="9277a" class="javax.swing.JTable" binding="skladTable">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>
-              <component id="d264a" class="javax.swing.JButton" binding="button5" default-binding="true">
+              <component id="d264a" class="javax.swing.JButton" binding="добавитьButton1" default-binding="true">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Button"/>
+                  <text value="Добавить"/>
                 </properties>
               </component>
-              <component id="f5aad" class="javax.swing.JButton" binding="button6" default-binding="true">
+              <component id="f5aad" class="javax.swing.JButton" binding="удалитьButton2" default-binding="true">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Button"/>
+                  <text value="Удалить"/>
                 </properties>
               </component>
             </children>
@@ -153,24 +211,26 @@
                 <children>
                   <component id="5dd1d" class="javax.swing.JTable" binding="typeDishTable">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>
-              <component id="539fa" class="javax.swing.JButton" binding="button7" default-binding="true">
+              <component id="539fa" class="javax.swing.JButton" binding="добавитьButton3" default-binding="true">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Button"/>
+                  <text value="Добавить"/>
                 </properties>
               </component>
-              <component id="b5650" class="javax.swing.JButton" binding="button8" default-binding="true">
+              <component id="b5650" class="javax.swing.JButton" binding="удалитьButton3" default-binding="true">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Button"/>
+                  <text value="Удалить"/>
                 </properties>
               </component>
             </children>
@@ -192,29 +252,31 @@
                 <children>
                   <component id="60033" class="javax.swing.JTable" binding="userTable">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>
-              <component id="94a26" class="javax.swing.JButton" binding="button9" default-binding="true">
+              <component id="94a26" class="javax.swing.JButton" binding="добавитьButton4" default-binding="true">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Button"/>
+                  <text value="Добавить"/>
                 </properties>
               </component>
-              <component id="34f02" class="javax.swing.JButton" binding="button10" default-binding="true">
+              <component id="34f02" class="javax.swing.JButton" binding="удалитьButton4" default-binding="true">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Button"/>
+                  <text value="Удалить"/>
                 </properties>
               </component>
             </children>
           </grid>
-          <grid id="c02b6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="c02b6" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Просроченные ячейки"/>
@@ -222,13 +284,36 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="860d9" class="javax.swing.JTable" binding="bedcellsTable">
+              <scrollpane id="3eb30">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="50"/>
-                  </grid>
+                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="860d9" class="javax.swing.JTable" binding="bedcellsTable">
+                    <constraints/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <component id="6869e" class="javax.swing.JButton" binding="button1" default-binding="true">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Button"/>
+                </properties>
+              </component>
+              <component id="299ee" class="javax.swing.JButton" binding="button2" default-binding="true">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Button"/>
+                </properties>
               </component>
             </children>
           </grid>
