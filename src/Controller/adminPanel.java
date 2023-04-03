@@ -244,6 +244,7 @@ public class adminPanel extends JFrame {
         addAdditionButton.addActionListener(e -> {
             try {
                 new DbCon().insert_addition(additionNane.getText(), Integer.parseInt((String) additionOnSklad.getSelectedItem()), Double.parseDouble(additionCost.getText()), descriptionField.getText(), Integer.parseInt(additionWeight.getText()));
+                createTable(additionTable, "Блюдо", getDataFromResultSet(new DbCon().getResultSet("select * from kursach.\"Блюдо\";")));
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
@@ -251,8 +252,23 @@ public class adminPanel extends JFrame {
         addTypeDishButton.addActionListener(e -> {
             try {
                 new DbCon().insert_type_dish(nameType_dish.getText(), Time.valueOf(timeStartType_dish.getText()), Time.valueOf(timeEndType_dish.getText()));
+                createTable(typeDishTable, "Тип блюда", getDataFromResultSet(new DbCon().getResultSet("select * from kursach.\"Тип блюда\";")));
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
+            }
+        });
+        deleteZakazButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (zakazTable.getSelectedRow() != -1)
+                    {
+                        new DbCon().delete_zakaz((Integer) zakazTable.getValueAt(zakazTable.getSelectedRow(), 0));
+                        createTable(zakazTable, "Заказ", getDataFromResultSet(new DbCon().getResultSet("select * from kursach.\"Заказ\";")));
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }
