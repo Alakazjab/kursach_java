@@ -3,6 +3,7 @@ package Model;
 import Model.interfaces.callProcedures;
 import Model.interfaces.selectFunctions;
 
+import javax.swing.*;
 import java.sql.*;
 
 public class DbCon implements callProcedures, selectFunctions {
@@ -15,7 +16,12 @@ public class DbCon implements callProcedures, selectFunctions {
         try {
             return DriverManager.getConnection("jdbc:postgresql://172.20.8.15:5432/db0901_08","st0901","pwd0901");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            JOptionPane.showMessageDialog(null,
+                    new String[] {"Ошибка при подключении к базе данных",
+                            "проверьте что устройство находится в сети"},
+                    "Ошибка подключения",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
         }
     }
     public ResultSet getResultSet(String query) throws SQLException {

@@ -46,7 +46,11 @@ public class authForm extends JFrame {
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (textField1.getText().isEmpty()) loginField.setText("Это поле необходимо Заполнить");
+                if (textField1.getText().isEmpty()){
+                    sign_inButton.setEnabled(false);
+                    loginField.setText("Это поле необходимо Заполнить");
+                }
+                sign_inButton.setEnabled(true);
                 Placeholder.textFocusLost(textField1, "E-mail");
             }
         });
@@ -58,7 +62,11 @@ public class authForm extends JFrame {
             }
             @Override
             public void focusLost(FocusEvent e) {
-                if (passwordField1.getText().isEmpty()) passwordLabel.setText("Это поле необходимо Заполнить");
+                if (passwordField1.getText().isEmpty()) {
+                    sign_inButton.setEnabled(false);
+                    passwordLabel.setText("Это поле необходимо Заполнить");
+                }
+                sign_inButton.setEnabled(true);
                 Placeholder.passwordFocusLost(passwordField1, "Password");
             }
         });
@@ -71,7 +79,7 @@ public class authForm extends JFrame {
                     if (Objects.equals(new DbCon().return_user_status(textField1.getText()), "admin")){
                         adminPanel adminPanel = new adminPanel();
                         adminPanel.pack();
-                        adminPanel.setSize(new Dimension(500, 500));
+                        adminPanel.setSize(new Dimension(1000, 500));
                         adminPanel.setVisible(true);
                         dispose();
                         return;
@@ -88,7 +96,11 @@ public class authForm extends JFrame {
                 }
 
             } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(null,
+                        new String[] {"Были введены неверные данные",
+                                "попытка входа провалена"},
+                        "Ошибка входа",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
         registerButton.addActionListener(e -> {

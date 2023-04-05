@@ -45,8 +45,8 @@ public class registerForm extends JFrame {
         emailField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-               Placeholder.textFocusGained(emailField,"E-mail");
-               if (! emailField.getText().isEmpty()) emailLabel.setText(null);
+                Placeholder.textFocusGained(emailField,"E-mail");
+                if (! emailField.getText().isEmpty()) emailLabel.setText(null);
             }
             @Override
             public void focusLost(FocusEvent e) {
@@ -107,7 +107,11 @@ public class registerForm extends JFrame {
                     dispose();
                 }
             } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(null,
+                        new String[] {"Были введены неверные данные",
+                                "проверьте корректность ввода"},
+                        "Ошибка регистрации",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
 
