@@ -8,6 +8,11 @@ public interface callProcedures {
     boolean add_user(String name, String email, String password, int age) throws SQLException;
     boolean create_zakaz(int id_user, boolean dilivery, Object[][] dish_number, Object[][] addition_number) throws SQLException;
     boolean create_zakaz(int id_user, boolean dilivery, Object[][] dish_number, String type) throws SQLException;
+    boolean delete_addition(int id) throws SQLException;
+    boolean delete_dish(int id) throws SQLException;
+    boolean delete_sklad(int id) throws SQLException;
+    boolean delete_type_dish(int id) throws SQLException;
+    boolean delete_users(int id) throws SQLException;
     boolean delete_zakaz(int zakaz_id) throws SQLException;
     boolean insert_addition(String name, int num, double cost, String description, int weight) throws SQLException;
     boolean insert_dish(String name, int type_id, double cost, int size, int calories, Object[][] stucture) throws SQLException;

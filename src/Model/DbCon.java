@@ -47,8 +47,7 @@ public class DbCon implements callProcedures, selectFunctions {
         callableStatement.setString(2,email);
         callableStatement.setString(3,password);
         callableStatement.setInt(4, age);
-        callableStatement.execute();
-        return true;
+        return callableStatement.execute();
     }
 
     @Override
@@ -59,8 +58,7 @@ public class DbCon implements callProcedures, selectFunctions {
         callableStatement.setBoolean(2,dilivery);
         callableStatement.setArray(3,connection.createArrayOf("integer", dish_number));
         callableStatement.setArray(4, connection.createArrayOf("integer", addition_number));
-        callableStatement.execute();
-        return true;
+        return callableStatement.execute();
     }
 
     @Override
@@ -71,8 +69,47 @@ public class DbCon implements callProcedures, selectFunctions {
         callableStatement.setBoolean(2,dilivery);
         callableStatement.setArray(3,connection.createArrayOf("integer", dish_number));
         callableStatement.setString(4, type);
-        callableStatement.execute();
-        return true;
+        return callableStatement.execute();
+    }
+
+    @Override
+    public boolean delete_addition(int id) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.delete_addition(?)");
+        callableStatement.setInt(1,id);
+        return callableStatement.execute();
+    }
+
+    @Override
+    public boolean delete_dish(int id) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.delete_dish(?)");
+        callableStatement.setInt(1,id);
+        return callableStatement.execute();
+    }
+
+    @Override
+    public boolean delete_sklad(int id) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.delete_sklad(?)");
+        callableStatement.setInt(1,id);
+        return callableStatement.execute();
+    }
+
+    @Override
+    public boolean delete_type_dish(int id) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.delete_type_dish(?)");
+        callableStatement.setInt(1,id);
+        return callableStatement.execute();
+    }
+
+    @Override
+    public boolean delete_users(int id) throws SQLException {
+        connection = connect();
+        callableStatement = connection.prepareCall(" CALL kursach.delete_users(?)");
+        callableStatement.setInt(1,id);
+        return callableStatement.execute();
     }
 
     @Override
@@ -80,8 +117,7 @@ public class DbCon implements callProcedures, selectFunctions {
         connection = connect();
         callableStatement = connection.prepareCall(" CALL kursach.delete_zakaz(?)");
         callableStatement.setInt(1,zakaz_id);
-        callableStatement.execute();
-        return true;
+        return callableStatement.execute();
     }
 
     @Override
@@ -93,8 +129,7 @@ public class DbCon implements callProcedures, selectFunctions {
         callableStatement.setDouble(3,cost);
         callableStatement.setString(4, description);
         callableStatement.setInt(5, weight);
-        callableStatement.execute();
-        return true;
+        return callableStatement.execute();
     }
 
     @Override
@@ -107,8 +142,7 @@ public class DbCon implements callProcedures, selectFunctions {
         callableStatement.setInt(4, size);
         callableStatement.setInt(5, calories);
         callableStatement.setArray(6, connection.createArrayOf("integer", stucture));
-        callableStatement.execute();
-        return true;
+        return callableStatement.execute();
     }
 
     @Override
@@ -120,8 +154,7 @@ public class DbCon implements callProcedures, selectFunctions {
         callableStatement.setInt(3, num);
         callableStatement.setDate(4, date);
         callableStatement.setInt(5, shelf_life);
-        callableStatement.execute();
-        return true;
+        return callableStatement.execute();
     }
 
     @Override
@@ -132,8 +165,7 @@ public class DbCon implements callProcedures, selectFunctions {
         callableStatement.setString(2,name);
         callableStatement.setInt(3,num);
         callableStatement.setInt(4, shelf_life);
-        callableStatement.execute();
-        return true;
+        return callableStatement.execute();
     }
 
     @Override
@@ -143,8 +175,7 @@ public class DbCon implements callProcedures, selectFunctions {
         callableStatement.setString(1,name);
         callableStatement.setTime(2, feed_time_start);
         callableStatement.setTime(3, feed_time_end);
-        callableStatement.execute();
-        return true;
+        return callableStatement.execute();
     }
 
     @Override
@@ -153,8 +184,7 @@ public class DbCon implements callProcedures, selectFunctions {
         callableStatement = connection.prepareCall(" CALL kursach.update_number_cell(?, ?)");
         callableStatement.setString(1,cell_curr);
         callableStatement.setInt(2, number_new);
-        callableStatement.execute();
-        return true;
+        return callableStatement.execute();
     }
 
     @Override
@@ -163,8 +193,7 @@ public class DbCon implements callProcedures, selectFunctions {
         callableStatement = connection.prepareCall(" CALL kursach.update_status_user(?, ?)");
         callableStatement.setInt(1, id);
         callableStatement.setString(2,status);
-        callableStatement.execute();
-        return true;
+        return callableStatement.execute();
     }
 
     @Override
@@ -173,8 +202,7 @@ public class DbCon implements callProcedures, selectFunctions {
         callableStatement = connection.prepareCall(" CALL kursach.update_status_zakaz(?, ?)");
         callableStatement.setInt(1,id);
         callableStatement.setString(2,status);
-        callableStatement.execute();
-        return true;
+        return callableStatement.execute();
     }
 
     @Override

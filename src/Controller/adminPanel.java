@@ -9,6 +9,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.text.AbstractDocument;
 import javax.swing.text.DefaultFormatter;
 import javax.swing.text.NumberFormatter;
 import javax.swing.text.PlainDocument;
@@ -56,19 +57,18 @@ public class adminPanel extends JFrame {
     private JButton addStructureTable;
     private JTextField textField5;
     private JTextField textField6;
-    private JTextField textField7;
     private JSpinner spinner1;
     private JSpinner spinner2;
     private JTextField nameType_dish;
     private JFormattedTextField timeStartType_dish;
     private JFormattedTextField timeEndType_dish;
-    private JCheckBox nowCheckBox;
     private JSpinner spinner3;
     private JSpinner spinner4;
     private JSpinner spinner5;
     private JSpinner spinner6;
     private JSpinner spinner7;
     private JSpinner spinner8;
+    private JButton deleteTypeDishButton;
     private final String TITLE_confirm = "Подтверждение";
 
 
@@ -147,8 +147,8 @@ public class adminPanel extends JFrame {
         // Определение редактора ячеек для колонки
         dishTable.getColumnModel().getColumn(2)
                 .setCellEditor(new DefaultCellEditor(new JComboBox<String>(createTable.getListValues(typeDishTable,1))));
-        dishTable.getColumnModel().getColumn(2)
-                .setCellEditor(new DefaultCellEditor(new JComboBox<String>(createTable.getListValues(skladTable,0))));
+//        dishTable.getColumnModel().getColumn(2)
+//                .setCellEditor(new DefaultCellEditor(new JComboBox<String>(createTable.getListValues(skladTable,0))));
         additionTable.getColumnModel().getColumn(2)
                 .setCellEditor(new DefaultCellEditor(new JComboBox<String>(createTable.getListValues(skladTable,0))));
         zakazTable.getColumnModel().getColumn(2)
@@ -295,6 +295,7 @@ public class adminPanel extends JFrame {
             public void tableChanged(TableModelEvent e) {
                 int row = e.getFirstRow();
                 int column = e.getColumn();
+                if (true) return;
                 TableModel model = (TableModel)e.getSource();
                 Object data = model.getValueAt(row, column);
                 // Check if the changed cell is the redacted cell
@@ -307,24 +308,24 @@ public class adminPanel extends JFrame {
                 }
             }
         });
-        addAdditionButton.addActionListener(e -> {
-            try {
-                new DbCon().insert_addition(additionNane.getText(), Integer.parseInt((String) additionOnSklad.getSelectedItem()), Double.parseDouble(additionCost.getText()), descriptionField.getText(), Integer.parseInt(additionWeight.getText()));
-                DefaultTableModel model = (DefaultTableModel) additionTable.getModel();
-                model.setRowCount(0);
-                createTable.addData(additionTable, "Блюдо", createTable.getDataFromResultSet(new DbCon().getResultSet("select * from kursach.\"Блюдо\";")));
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-        addTypeDishButton.addActionListener(e -> {
-            try {
-                new DbCon().insert_type_dish(nameType_dish.getText(), Time.valueOf(spinner6.getValue() + ":" + spinner7.getValue() + ":" + spinner8.getValue()), Time.valueOf(spinner3.getValue() + ":" + spinner4.getValue() + ":" + spinner5.getValue()));
-                DefaultTableModel model = (DefaultTableModel) typeDishTable.getModel();
-                model.setRowCount(0);
-                createTable.addData(typeDishTable, "Тип блюда", createTable.getDataFromResultSet(new DbCon().getResultSet("select * from kursach.\"Тип блюда\";")));
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+        deleteAdditionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (additionTable.getSelectedRow() != -1 && JOptionPane.showConfirmDialog(null,
+                            "Вы не отказываетесь?",
+                            TITLE_confirm,
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION)
+                    {
+                        new DbCon().delete_addition(Integer.parseInt((String) additionTable.getValueAt(additionTable.getSelectedRow(), 0)));
+                        DefaultTableModel model = (DefaultTableModel) additionTable.getModel();
+                        model.setRowCount(0);
+                        createTable.addData(additionTable, "Дополнение", createTable.getDataFromResultSet(new DbCon().getResultSet("select * from kursach.\"Дополнение\";")));
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         deleteZakazButton.addActionListener(new ActionListener() {
@@ -347,16 +348,131 @@ public class adminPanel extends JFrame {
                 }
             }
         });
+        deleteDishButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (dishTable.getSelectedRow() != -1 && JOptionPane.showConfirmDialog(null,
+                            "Вы не отказываетесь?",
+                            TITLE_confirm,
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION)
+                    {
+                        new DbCon().delete_dish(Integer.parseInt((String) dishTable.getValueAt(dishTable.getSelectedRow(), 0)));
+                        DefaultTableModel model = (DefaultTableModel) dishTable.getModel();
+                        model.setRowCount(0);
+                        createTable.addData(dishTable, "Блюдо", createTable.getDataFromResultSet(new DbCon().getResultSet("select * from kursach.\"Блюдо\";")));
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        DeleteSkladButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (skladTable.getSelectedRow() != -1 && JOptionPane.showConfirmDialog(null,
+                            "Вы не отказываетесь?",
+                            TITLE_confirm,
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION)
+                    {
+                        new DbCon().delete_sklad(Integer.parseInt((String) skladTable.getValueAt(skladTable.getSelectedRow(), 0)));
+                        DefaultTableModel model = (DefaultTableModel) skladTable.getModel();
+                        model.setRowCount(0);
+                        createTable.addData(skladTable, "Склад", createTable.getDataFromResultSet(new DbCon().getResultSet("select * from kursach.\"Склад\";")));
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        deleteTypeDishButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (typeDishTable.getSelectedRow() != -1 && JOptionPane.showConfirmDialog(null,
+                            "Вы не отказываетесь?",
+                            TITLE_confirm,
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION)
+                    {
+                        new DbCon().delete_type_dish(Integer.parseInt((String) typeDishTable.getValueAt(typeDishTable.getSelectedRow(), 0)));
+                        DefaultTableModel model = (DefaultTableModel) typeDishTable.getModel();
+                        model.setRowCount(0);
+                        createTable.addData(typeDishTable, "Тип блюда", createTable.getDataFromResultSet(new DbCon().getResultSet("select * from kursach.\"Тип блюда\";")));
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         addStructureTable.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createTable.addDataAtListCoolumn(structureTable, new Object[][]{{skladIdList.getSelectedItem(),0}});
             }
         });
-        deleteAdditionButton.addActionListener(new ActionListener() {
+        addAdditionButton.addActionListener(e -> {
+            try {
+                new DbCon().insert_addition(additionNane.getText(), Integer.parseInt((String) additionOnSklad.getSelectedItem()), Double.parseDouble(additionCost.getText()), descriptionField.getText(), Integer.parseInt(additionWeight.getText()));
+                DefaultTableModel model = (DefaultTableModel) additionTable.getModel();
+                model.setRowCount(0);
+                createTable.addData(additionTable, "Дополнение", createTable.getDataFromResultSet(new DbCon().getResultSet("select * from kursach.\"Дополнение\";")));
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        addTypeDishButton.addActionListener(e -> {
+            try {
+                new DbCon().insert_type_dish(nameType_dish.getText(), Time.valueOf(spinner6.getValue() + ":" + spinner7.getValue() + ":" + spinner8.getValue()), Time.valueOf(spinner3.getValue() + ":" + spinner4.getValue() + ":" + spinner5.getValue()));
+                DefaultTableModel model = (DefaultTableModel) typeDishTable.getModel();
+                model.setRowCount(0);
+                createTable.addData(typeDishTable, "Тип блюда", createTable.getDataFromResultSet(new DbCon().getResultSet("select * from kursach.\"Тип блюда\";")));
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        addDishButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    Object[][] dishes;
+                    dishes = new Object[structureTable.getRowCount()][2];
+                    for (int i = 0; i < structureTable.getRowCount(); i++) {
+                        dishes[i][0] = structureTable.getValueAt(i,0);
+                        dishes[i][1] = structureTable.getValueAt(i,1);
+                    }
+                    if (structureTable.getRowCount()>0)
+                        new DbCon().insert_dish(textField1.getText(),
+                                Integer.parseInt((String) typeDishList.getSelectedItem()),
+                                Integer.parseInt(textField2.getText()),
+                                Integer.parseInt(textField3.getText()),
+                                Integer.parseInt(textField4.getText()),
+                                dishes);
+                    DefaultTableModel model = (DefaultTableModel) dishTable.getModel();
+                    model.setRowCount(0);
+                    createTable.addData(dishTable, "Блюдо", createTable.getDataFromResultSet(new DbCon().getResultSet("select * from kursach.\"Блюдо\";")));
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        addSkladButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new DbCon().insert_sklad(textField5.getText(),
+                            textField6.getText(),
+                            (Integer) spinner2.getValue(),
+                            (Integer) spinner1.getValue());
+                    DefaultTableModel model = (DefaultTableModel) skladTable.getModel();
+                    model.setRowCount(0);
+                    createTable.addData(skladTable, "Склад", createTable.getDataFromResultSet(new DbCon().getResultSet("select * from kursach.\"Склад\";")));
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }
